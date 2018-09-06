@@ -2,11 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include "command.h"
+#include "ecc.h"
 
-static char buf[0x80];
+// #define BUFLEN 0x800
+// char buf[BUFLEN];
 
 static void echo(){
-  scanf("%s", buf);
+  char buf[1024];
+  scanf_s("%s", buf, (unsigned int)sizeof(buf));
   DATA("%s", buf);
   OK();
 }
@@ -19,10 +22,11 @@ func_t cmdlist[] = {
   {"echo", echo, "echo."},
   {"version", version, "get version."},
   // {"list_wallet", list_wallet, "list all wallet."},
-  // {"sign_deterministic", sign_deterministic, "Deterministic signature. (key_id message_hash_hex)"},
-  // {"verify", verify, "Verify. (key_id message_hash_hex signature)"},
-  // {"set_pubkey", set_pubkey, "Set public key (key_id curve bin_hex)."},
-  // {"set_privkey", set_pubkey, "Set private key (key_id curve bin_hex)."},
+  {"sign_deterministic", sign_deterministic, "Deterministic signature. (key_id message_hash_hex)"},
+  {"verify", verify, "Verify. (key_id message_hash_hex signature)"},
+  {"set_pubkey", set_pubkey, "Set public key (key_id curve bin_hex)."},
+  {"get_pubkey", get_pubkey, "Get public key (key_id)."},
+  {"set_privkey", set_privkey, "Set private key (key_id curve bin_hex)."},
   // {"gen_privkey", set_pubkey, "Generate private key from TRNG (key_id curve)."},
   {0,0,0} // SENTINEL
 };
@@ -38,8 +42,9 @@ void help(){
 
 void command(){
   int found;
+  char buf[64];
   for(;;){
-    scanf("%s", buf);
+    scanf_s("%s", buf, (unsigned int)sizeof(buf));
     // help
     if(strcmp(buf,"help")==0){
       help();
