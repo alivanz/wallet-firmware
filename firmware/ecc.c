@@ -28,7 +28,7 @@ unsigned char * hex2bin(unsigned char *hex, unsigned char *out){
 char * bin2hex(unsigned char *bin, unsigned int len){
   static char out[1024];
   for(unsigned int i=0; i<len; i++){
-    sprintf_s(&out[i*2], sizeof(out), "%02x", bin[i]);
+    sprintf(&out[i*2], "%02x", bin[i]);
   }
   out[len*2] = 0;
   return out;
@@ -37,9 +37,9 @@ char * bin2hex(unsigned char *bin, unsigned int len){
 void set_pubkey(){
   int keyid;
   char type[64];
-  char hex[192];
+  char hex[129];
   uint8_t bin[sizeof(hex)/2];
-  scanf_s("%i %s %s", &keyid, type, 64, hex, (unsigned int)sizeof(hex));
+  scanf("%i %64s %129s", &keyid, type, hex);
   // Check memory slot
   if(keyid==-1){
 
@@ -73,7 +73,7 @@ void set_privkey(){
   char priv_hex[65];
   uint8_t priv[sizeof(priv_hex)/2];
   uint8_t pub[64];
-  scanf_s("%i %s %s", &keyid, type, 64, priv_hex, (unsigned int)sizeof(priv_hex));
+  scanf("%i %64s %65s", &keyid, type, priv_hex);
   hex2bin(priv_hex, priv);
   // Check memory slot
   if(keyid==-1){
@@ -108,7 +108,7 @@ void set_privkey(){
 
 void get_pubkey(){
   int keyid;
-  scanf_s("%i", &keyid);
+  scanf("%i", &keyid);
   if(keyid==-1){
     DATA("%s", bin2hex(pubkey,uECC_curve_public_key_size(curve)));
     OK();
@@ -121,7 +121,7 @@ void verify(){
   char sig_hex[129];
   char msg[sizeof(msg_hex)/2];
   char sig[sizeof(sig_hex)/2];
-  scanf_s("%i %s %s", &keyid, msg_hex, (unsigned int)sizeof(msg_hex), sig_hex, (unsigned int)sizeof(sig_hex));
+  scanf("%i %65s %129s", &keyid, msg_hex, sig_hex);
   hex2bin(msg_hex, msg);
   hex2bin(sig_hex, sig);
   // Check key id
@@ -170,7 +170,7 @@ void sign_deterministic(){
   char msg_hex[65];
   char msg[sizeof(msg_hex)/2];
   char sig[64];
-  scanf_s("%i %s", &keyid, msg_hex, (unsigned int)sizeof(msg_hex));
+  scanf("%i %65s", &keyid, msg_hex);
   hex2bin(msg_hex, msg);
   // Check key id
   if(keyid==-1){

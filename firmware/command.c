@@ -9,7 +9,7 @@
 
 static void echo(){
   char buf[1024];
-  scanf_s("%s", buf, (unsigned int)sizeof(buf));
+  scanf("%1024s", buf);
   DATA("%s", buf);
   OK();
 }
@@ -43,8 +43,8 @@ void help(){
 void command(){
   int found;
   char buf[64];
-  for(;;){
-    scanf_s("%s", buf, (unsigned int)sizeof(buf));
+  for(;!feof(stdin);){
+    scanf("%64s", buf);
     // help
     if(strcmp(buf,"help")==0){
       help();
