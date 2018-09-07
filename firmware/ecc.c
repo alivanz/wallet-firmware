@@ -44,7 +44,7 @@ void set_pubkey(){
   if(keyid==-1){
 
   }else{
-    ERROR("invalid memory slot");
+    ERRORF("invalid memory slot");
     return;
   }
   // Check curve
@@ -55,12 +55,12 @@ void set_pubkey(){
   IF_CURVE(secp256r1)
   IF_CURVE(secp256k1)
   {
-    ERROR("unknown curve");
+    ERRORF("unknown curve");
     return;
   }
   hex2bin(hex, bin);
   if(!uECC_valid_public_key(bin, curve)){
-    ERROR("invalid key");
+    ERRORF("invalid key");
     return;
   }
   memcpy(pubkey,bin,64);
@@ -79,7 +79,7 @@ void set_privkey(){
   if(keyid==-1){
 
   }else{
-    ERROR("invalid memory slot");
+    ERRORF("invalid memory slot");
     return;
   }
   // Check curve
@@ -91,12 +91,12 @@ void set_privkey(){
   IF_CURVE(secp256r1)
   IF_CURVE(secp256k1)
   {
-    ERROR("unknown curve");
+    ERRORF("unknown curve");
     return;
   }
   // Compute pubkey
   if(!uECC_compute_public_key(priv,pub,_curve)){
-    ERROR("failed to compute pubkey");
+    ERRORF("failed to compute pubkey");
     return;
   }
   // Store
@@ -128,11 +128,11 @@ void verify(){
   if(keyid==-1){
 
   }else{
-    ERROR("invalid memory slot");
+    ERRORF("invalid memory slot");
   }
   // Verify
   if(!uECC_verify(pubkey, msg, strlen(msg_hex)/2, sig, curve)){
-    ERROR("Invalid signature");
+    ERRORF("Invalid signature");
     return;
   }
   OK();
@@ -176,11 +176,11 @@ void sign_deterministic(){
   if(keyid==-1){
 
   }else{
-    ERROR("invalid memory slot");
+    ERRORF("invalid memory slot");
   }
   // Signature
   if(!uECC_sign_deterministic(privkey, msg, SHA256_DIGEST_LENGTH, &ctx.uECC, sig, curve)){
-    ERROR("Signature failed.");
+    ERRORF("Signature failed.");
     return;
   }
   // Print signature

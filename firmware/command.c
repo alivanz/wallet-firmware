@@ -59,13 +59,13 @@ void command(){
         if(fx){
           fx();
         }else{
-          ERROR("function undefined");
+          ERRORF("function undefined");
         }
         break;
       }
     }
     if(!found){
-      ERROR("unknown command");
+      ERRORF("unknown command");
     }
   }
 }

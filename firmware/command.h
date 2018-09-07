@@ -15,7 +15,7 @@ typedef struct{
 
 #define XX(tag,x,...) printf(tag " " x "\n", ##__VA_ARGS__)
 #define LOG(x, ...)   XX("LOG", x, ## __VA_ARGS__)
-#define ERROR(x, ...) XX("ERROR", x, ## __VA_ARGS__)
+#define ERRORF(x, ...) XX("ERROR", x, ## __VA_ARGS__)
 #define DATA(x, ...)  XX("DATA", x, ## __VA_ARGS__)
 #define OK(x, ...)    XX("OK", x, ## __VA_ARGS__)
 
