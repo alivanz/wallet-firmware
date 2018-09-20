@@ -8,6 +8,7 @@
 // #define BUFLEN 0x800
 // char buf[BUFLEN];
 
+#ifndef WIN32
 static void echo(){
   printf("DATA ");
   char c = uart_getchar();
@@ -19,6 +20,7 @@ static void echo(){
   // DATA("%s", buf);
   OK();
 }
+#endif
 static void echo2(){
   char buf[256];
   scanf("%s", buf);
@@ -31,7 +33,9 @@ static void version(){
 }
 
 func_t cmdlist[] = {
+  #ifndef WIN32
   {"echo", echo, "echo."},
+  #endif
   {"echo2", echo2, "echo."},
   {"version", version, "get version."},
   // {"list_wallet", list_wallet, "list all wallet."},

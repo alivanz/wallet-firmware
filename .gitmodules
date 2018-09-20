@@ -1,3 +1,3 @@
-[submodule "micro-ecc"]
-	path = micro-ecc
+[submodule "src/micro-ecc"]
+	path = source/micro-ecc
 	url = https://github.com/kmackay/micro-ecc

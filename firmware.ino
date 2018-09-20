@@ -9,6 +9,7 @@ void setup(){
 }
 
 int main(){
+  setup();
   command();
   return 0;
 }
