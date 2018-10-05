@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "command.h"
-#include "ecc.h"
 #include "serial.h"
+
+extern "C"{
+  #include "ecc.h"
+  #include "command.h"
+}
 
 // #define BUFLEN 0x800
 // char buf[BUFLEN];
@@ -57,6 +60,8 @@ void help(){
   OK();
 }
 
+extern "C"{
+
 void command(){
   int found;
   char buf[64];
@@ -89,4 +94,6 @@ void command(){
       ERRORF("unknown command");
     }
   }
+}
+
 }
